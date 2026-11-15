@@ -1,6 +1,6 @@
 # Earlier versions
 
-Kept for reference. Use `firmware/MMCv12ESP32` unless you have a reason not to.
+Kept for reference. Use `firmware/MMCv14ESP32` unless you have a reason not to.
 
 | Sketch | Notes |
 |---|---|
@@ -9,3 +9,5 @@ Kept for reference. Use `firmware/MMCv12ESP32` unless you have a reason not to.
 | `MMCv10ESP32` | First attempt at non-blocking delays. The motor moves straight after the shutter fires; don't use. |
 | `MMCv11ESP32` | State-machine version that v12 was rewritten from. The last frame of each stack gets no settle delay. |
 | `MMCv11ESP32BLE` | Unfinished Bluetooth LE port. Does not compile. |
+| `MMCv12ESP32` | Rewrite of v11: timed sequencing, validated commands, position marks, saved settings. Classic Bluetooth and WiFi update; needs the Minimal SPIFFS partition scheme. |
+| `MMCv13ESP32` | v12 with Bluetooth LE in place of classic Bluetooth. Keeps the WiFi update page; fits the default partition scheme (95% full). Needs the NimBLE-Arduino library. |

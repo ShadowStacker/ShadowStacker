@@ -1,9 +1,0 @@
-{
-  "additionalFiles": "",
-  "compiler.optimization_flags": "-Os",
-  "customBuildProperties": "",
-  "fqbn": "esp32:esp32:esp32:PartitionScheme=min_spiffs",
-  "hardwareFolders": "/tmp/claude-0/-home-user/525cafe4-111a-560d-b75b-65c1681eece0/scratchpad/acli/data/packages/esp32/hardware/esp32/3.3.12,/tmp/claude-0/-home-user/525cafe4-111a-560d-b75b-65c1681eece0/scratchpad/acli/data/packages/esp32/hardware/esp32/3.3.12",
-  "otherLibrariesFolders": "/tmp/claude-0/-home-user/525cafe4-111a-560d-b75b-65c1681eece0/scratchpad/acli/user/libraries",
-  "sketchLocation": "/home/user/shadowstacker/firmware/MMCv12ESP32"
-}
