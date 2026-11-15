@@ -7,9 +7,9 @@ in stacking software.
 
 It also works as a plain intervalometer.
 
-> **Status:** `firmware/MMCv12ESP32` is a rewrite of v11. Its logic has been
-> checked in simulation, but at the time of writing it has not yet been compiled
-> for or run on the real hardware. The earlier sketches are kept in
+> **Status:** `firmware/MMCv12ESP32` is a rewrite of v11. It compiles cleanly
+> and its logic has been checked in simulation, but at the time of writing it
+> has not yet been run on the real hardware. The earlier sketches are kept in
 > [`archive/`](archive/) if you need to fall back.
 
 ## What it does
@@ -55,8 +55,28 @@ All of these are constants at the top of the sketch.
 2. Open `firmware/MMCv12ESP32/MMCv12ESP32.ino`.
 3. Select your ESP32 board and port, then upload. No extra libraries are needed.
 
-If the sketch is too big for your board, pick a partition scheme with a larger
-app area that still has OTA (for example "Minimal SPIFFS").
+The sketch is about 1.7 MB, which is too big for the default partition scheme.
+Under **Tools → Partition Scheme** choose **Minimal SPIFFS (1.9MB APP with OTA)**.
+
+### Ready-made binaries
+
+If you'd rather not build it, [`firmware/bin/`](firmware/bin/) has v12 compiled
+for a generic **ESP32 Dev Module** with 4 MB flash and the Minimal SPIFFS
+partition scheme (arduino-esp32 core 3.3.12):
+
+| File | Use |
+|---|---|
+| `ShadowStacker-v12-update.bin` | Upload through the WiFi update page (see below). Only works if the board was last flashed with a partition scheme whose app area is at least 1.7 MB. |
+| `ShadowStacker-v12-full-flash.bin` | Complete image (bootloader, partition table and firmware) for flashing over USB at address `0x0`. Use this on a fresh board or if the WiFi update is refused. |
+
+To flash the full image over USB with [esptool](https://github.com/espressif/esptool):
+
+```bash
+esptool.py --chip esp32 --baud 460800 write_flash 0x0 ShadowStacker-v12-full-flash.bin
+```
+
+Flashing the full image overwrites the whole flash, so saved settings go back
+to their defaults.
 
 ## Connecting
 
@@ -155,7 +175,8 @@ so the rotor can't relax between frames.
 
 ## Updating firmware over WiFi
 
-1. In the Arduino IDE use **Sketch → Export Compiled Binary** to make a `.bin` file.
+1. Get a `.bin` file: either `ShadowStacker-v12-update.bin` from `firmware/bin/`, or
+   build your own with **Sketch → Export Compiled Binary** in the Arduino IDE.
 2. Send `u`, then enter your WiFi name and password when asked (send `-` as the
    password for an open network).
 3. The controller prints an address, a user name and a 6-digit password. Open
@@ -182,5 +203,6 @@ If it can't connect within 20 seconds it gives up and returns to normal. Send
 
 ```
 firmware/MMCv12ESP32/   current firmware
+firmware/bin/           compiled binaries of the current firmware
 archive/                earlier versions, kept for reference
 ```
